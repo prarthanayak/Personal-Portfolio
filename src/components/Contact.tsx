@@ -39,13 +39,13 @@ const Contact: React.FC = () => {
   const socialLinks = [
     {
       icon: <Github size={24} />,
-      href: 'https://github.com',
+      href: 'https://github.com/prarthanayak',
       label: 'GitHub',
       color: 'hover:text-gray-900 dark:hover:text-white'
     },
     {
       icon: <Linkedin size={24} />,
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/in/prarthana-nayak-903090255/',
       label: 'LinkedIn',
       color: 'hover:text-blue-600'
     },
