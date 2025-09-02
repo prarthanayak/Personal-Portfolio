@@ -58,7 +58,7 @@ const About: React.FC = () => {
                   transition={{ duration: 0.3 }}
                 >
                   <div className="w-full h-full rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-8xl">
-                    👨‍💻
+                    👩🏻‍💻
                   </div>
                 </motion.div>
                 <motion.div
