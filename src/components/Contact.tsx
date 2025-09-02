@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
-import emailjs from "emailjs-com"; // ⬅️ NEW
+import { Mail, Linkedin, Github, Send, MapPin, Phone } from 'lucide-react';
+import emailjs from '@emailjs/browser'; // 👈 added
 
 const Contact: React.FC = () => {
   const { ref, inView } = useInView({
@@ -18,32 +18,26 @@ const Contact: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // ⬇️ UPDATED handleSubmit with EmailJS
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    emailjs.send(
-      "service_besceyg",   // 🔹 Replace with your EmailJS Service ID
-      "template_uh96q3u",  // 🔹 Replace with your EmailJS Template ID
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-      },
-      "4EWaRTPIpCRptdR5H"    // 🔹 Replace with your EmailJS Public Key
-    )
-    .then(() => {
-      alert("✅ Thank you! Your message was sent.");
+    try {
+      await emailjs.send(
+        "service_besceyg",     // ✅ your Service ID
+        "template_uh96q3u",    // ✅ your Template ID
+        formData,              // ✅ will send { name, email, message }
+        "4EWaRTPIpCRptdR5H"    // ✅ your Public Key
+      );
+
+      alert("✅ Thank you! Your message has been sent.");
       setFormData({ name: '', email: '', message: '' });
-    })
-    .catch((err) => {
-      console.error("EmailJS Error:", err);
+    } catch (error) {
+      console.error("EmailJS error:", error);
       alert("❌ Oops! Something went wrong, please try again.");
-    })
-    .finally(() => {
-      setIsSubmitting(false);
-    });
+    }
+
+    setIsSubmitting(false);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
