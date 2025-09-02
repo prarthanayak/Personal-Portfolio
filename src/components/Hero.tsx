@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
                 View My Work
               </motion.button>
               <motion.a
-                href="/resume.pdf"
+                href="https://drive.google.com/file/d/1GiI6_uCtQdGDB3PpIcbzdulO48sUEab7/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl"
