@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Linkedin, Github, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
+import emailjs from "emailjs-com"; // ⬅️ NEW
 
 const Contact: React.FC = () => {
   const { ref, inView } = useInView({
@@ -17,16 +18,32 @@ const Contact: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // ⬇️ UPDATED handleSubmit with EmailJS
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
-    setIsSubmitting(false);
+
+    emailjs.send(
+      "service_besceyg",   // 🔹 Replace with your EmailJS Service ID
+      "template_uh96q3u",  // 🔹 Replace with your EmailJS Template ID
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      },
+      "4EWaRTPIpCRptdR5H"    // 🔹 Replace with your EmailJS Public Key
+    )
+    .then(() => {
+      alert("✅ Thank you! Your message was sent.");
+      setFormData({ name: '', email: '', message: '' });
+    })
+    .catch((err) => {
+      console.error("EmailJS Error:", err);
+      alert("❌ Oops! Something went wrong, please try again.");
+    })
+    .finally(() => {
+      setIsSubmitting(false);
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -106,7 +123,6 @@ const Contact: React.FC = () => {
                   <p>prarthana.nayak0507@gmail.com</p>
                 </div>
               </motion.div>
-
 
               <motion.div
                 whileHover={{ x: 10 }}
